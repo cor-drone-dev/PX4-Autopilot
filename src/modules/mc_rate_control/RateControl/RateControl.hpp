@@ -43,22 +43,12 @@
 
 #include <lib/mixer/MultirotorMixer/MultirotorMixer.hpp>
 #include <uORB/topics/rate_ctrl_status.h>
-#include <iostream>
-#include <fstream>
-#include <vector>
-#include <string>
-#include <sstream>
 
 class RateControl
 {
 public:
 	RateControl() = default;
-	virtual ~RateControl();
-
-	std::ofstream test_file;
-	std::vector<std::string> output_list_;
-
-	// ~RateControl() = default;
+	~RateControl() = default;
 
 	/**
 	 * Set the rate control gains

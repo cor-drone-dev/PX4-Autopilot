@@ -51,7 +51,6 @@ MulticopterRateControl::MulticopterRateControl(bool vtol) :
 	_vehicle_status.vehicle_type = vehicle_status_s::VEHICLE_TYPE_ROTARY_WING;
 
 	parameters_updated();
-	
 }
 
 MulticopterRateControl::~MulticopterRateControl()
@@ -73,8 +72,6 @@ MulticopterRateControl::init()
 void
 MulticopterRateControl::parameters_updated()
 {
-	PX4_INFO("MARKER PID GAINS: %f, %f, %f", (double) _param_mc_yawrate_p.get(), (double) _param_mc_yawrate_i.get(),(double)  _param_mc_yawrate_d.get());
-
 	// rate control parameters
 	// The controller gain K is used to convert the parallel (P + I/s + sD) form
 	// to the ideal (K * [1 + 1/sTi + sTd]) form

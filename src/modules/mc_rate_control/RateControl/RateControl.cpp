@@ -40,45 +40,11 @@
 
 using namespace matrix;
 
-RateControl::~RateControl() {
-	PX4_INFO("Writing RATE CONTROL INFO to file");
-	test_file.open("/home/michiel/iets.csv");
-	test_file << "yaw_rate_setpoint,yaw_rate,yaw_error,yaw_rate_int,gain_p,gain_i\n";
-
-	for (std::string line : output_list_) {
-		PX4_INFO("WRITING LINE");
-		test_file << line;
-	}
-	test_file.close();
-	PX4_INFO("CLOSED RATE INFO FILE");
-}
-
 void RateControl::setGains(const Vector3f &P, const Vector3f &I, const Vector3f &D)
 {
 	_gain_p = P;
 	_gain_i = I;
 	_gain_d = D;
-
-	// output_file_.open("home/michiel/temp.csv");
-
-	// if (!test_file.is_open()) {
-	// 	PX4_INFO("Failed to open test file");
-	// } else {
-	// 	PX4_INFO("Opened test file");
-	// 	// test_file << "test tekst\n";
-	// 	// test_file << "nog maar wat";
-	// 	test_file.flush();
-	// }
-
-	// if (!output_file_) {
-	// 	PX4_INFO("Failed to open output file");
-	// } else {
-	// 	PX4_INFO("Opened output file");
-	// }
-	// for (string line : output_list_) {
-	// 	output_file_ << line;
-	// }
-	// output_file_.close();
 }
 
 void RateControl::setSaturationStatus(const MultirotorMixer::saturation_status &status)
@@ -100,13 +66,6 @@ Vector3f RateControl::update(const Vector3f &rate, const Vector3f &rate_sp, cons
 	// PID control with feed forward
 	const Vector3f torque = _gain_p.emult(rate_error) + _rate_int - _gain_d.emult(angular_accel) + _gain_ff.emult(rate_sp);
 
-  	std::stringstream msg;
-	// PX4_INFO("Error: %f, torque: %f", (double) rate_error(2), (double) torque(2));
-	msg << "[" << rate_sp(2) << "," << rate(2) << "," << rate_error(2) << "," << _rate_int(2) << "," << torque(2) << "," << _gain_p(2) << "," << _gain_i(2) << "],\n";
-
-	// PX4_INFO("%s", msg.str().c_str());
-	// output_file_ << "test\n";
-	output_list_.push_back(msg.str());
 	// update integral only if we are not landed
 	if (!landed) {
 		updateIntegral(rate_error, dt);
