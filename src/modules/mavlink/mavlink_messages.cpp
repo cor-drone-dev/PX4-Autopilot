@@ -84,6 +84,7 @@
 #include "streams/HIL_ACTUATOR_CONTROLS.hpp"
 #include "streams/HIL_STATE_QUATERNION.hpp"
 #include "streams/HOME_POSITION.hpp"
+#include "streams/HOVER_THRUST_ESTIMATE.hpp"
 #include "streams/LOCAL_POSITION_NED.hpp"
 #include "streams/MANUAL_CONTROL.hpp"
 #include "streams/MOUNT_ORIENTATION.hpp"
@@ -535,8 +536,11 @@ static const StreamListItem streams_list[] = {
 	create_stream_list_item<MavlinkStreamComponentInformation>(),
 #endif // COMPONENT_INFORMATION_HPP
 #if defined(RAW_RPM_HPP)
-	create_stream_list_item<MavlinkStreamRawRpm>()
+	create_stream_list_item<MavlinkStreamRawRpm>(),
 #endif // RAW_RPM_HPP
+#if defined(HOVER_THRUST_ESTIMATE_HPP)
+	create_stream_list_item<MavlinkStreamHoverThrustEstimate>()
+#endif // HOVER_THRUST_ESTIMATE_HPP
 };
 
 const char *get_stream_name(const uint16_t msg_id)
