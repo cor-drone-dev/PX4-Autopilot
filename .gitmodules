@@ -16,7 +16,7 @@
 	branch = master
 [submodule "src/lib/matrix"]
 	path = src/lib/matrix
-	url = https://github.com/PX4/PX4-Matrix.git
+	url = https://github.com/cor-drone-dev/PX4-Matrix.git
 	branch = master
 [submodule "src/lib/ecl"]
 	path = src/lib/ecl

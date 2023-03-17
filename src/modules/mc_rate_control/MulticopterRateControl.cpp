@@ -195,6 +195,7 @@ MulticopterRateControl::Run()
 				_rates_sp(1) = PX4_ISFINITE(v_rates_sp.pitch) ? v_rates_sp.pitch : rates(1);
 				_rates_sp(2) = PX4_ISFINITE(v_rates_sp.yaw)   ? v_rates_sp.yaw   : rates(2);
 				_thrust_sp = -v_rates_sp.thrust_body[2];
+				publishThrustSetpoint(now);
 			}
 		}
 
@@ -267,6 +268,18 @@ MulticopterRateControl::Run()
 	}
 
 	perf_end(_loop_perf);
+}
+
+void MulticopterRateControl::publishThrustSetpoint(hrt_abstime timestamp_sample)
+{
+	vehicle_thrust_setpoint_s v_thrust_sp = {};
+	v_thrust_sp.timestamp = hrt_absolute_time();
+	v_thrust_sp.timestamp_sample = timestamp_sample;
+	v_thrust_sp.xyz[0] = 0.0f;
+	v_thrust_sp.xyz[1] = 0.0f;
+	v_thrust_sp.xyz[2] = (PX4_ISFINITE(_thrust_sp)) ? (-_thrust_sp) : 0.0f;
+
+	_vehicle_thrust_setpoint_pub.publish(v_thrust_sp);
 }
 
 int MulticopterRateControl::task_spawn(int argc, char *argv[])
