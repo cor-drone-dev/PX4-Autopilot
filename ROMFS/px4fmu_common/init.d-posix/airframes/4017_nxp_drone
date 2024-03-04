@@ -22,9 +22,30 @@ set MIXER quad_x
 set PWM_OUT 1234
 
 param set-default IMU_DGYRO_CUTOFF 20
+param set-default EKF2_AID_MASK 24
+param set-default EKF2_HGT_MODE 3
+param set-default EKF2_EV_DELAY 0
 
-param set-default MC_ROLLRATE_P 0.18
-param set-default MC_ROLLRATE_I 0.15
+# ROLL
+param set-default MC_ROLLRATE_P 0.15
+param set-default MC_ROLLRATE_I 0.5
+param set-default MC_ROLLRATE_D 0.0032
+param set-default MC_ROLLRATE_FF 0.0
+param set-default MC_ROLLRATE_K 0.8
+param set-default MC_ROLL_P 5.0
 
-param set-default MC_PITCHRATE_P 0.18
-param set-default MC_PITCHRATE_I 0.15
+# PITCH
+param set-default MC_PITCHRATE_P 0.16
+param set-default MC_PITCHRATE_I 0.5
+param set-default MC_PITCHRATE_D 0.0034
+param set-default MC_PITCHRATE_FF 0.0
+param set-default MC_PITCHRATE_K 0.7
+param set-default MC_PITCH_P 5.5
+
+# YAW
+param set-default MC_YAWRATE_P 0.25
+param set-default MC_YAWRATE_I 0.2
+param set-default MC_YAWRATE_D 0.0
+param set-default MC_YAWRATE_FF 0.0
+param set-default MC_YAWRATE_K 0.6
+param set-default MC_YAW_P 3.0
